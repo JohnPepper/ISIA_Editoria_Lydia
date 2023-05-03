@@ -2,7 +2,6 @@ import telebot
 import openai
 import re
 import serial
-import time
 
 API_TOKEN = '5627308480:AAH0kfXZSvVdI1fb24Jc5v3v5Cec6rpaN98' #telegram token, no change
 OPENAI_API_KEY = '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' #OpenAI token, to change
@@ -45,7 +44,7 @@ def send_welcome(message):
 def echo_message(message):
     response = get_openai_response(message.text) #risposta dal modello di OpenAI
     moods = re.findall(r'\[(.*?)\]', response)#La parola tra parentesi quadre la salva in una variabile
-    # Rimuove le parole tra parentesi quadre dalla risposta
+    #Rimuove le parole tra parentesi quadre dalla risposta
     response = re.sub(r'\[.*?\]', '', response)
     execute_action(moods) # Invia il comando all'ESP32 in base allo stato d'animo
     bot.reply_to(message, response)
@@ -55,15 +54,15 @@ def echo_message(message):
 
 def execute_action(moods):
     if 'felicità' in moods:
-        ser.write(b'LED_ON\n') # Invia il comando per accendere il LED
+        ser.write(b'1') # Invia il comando
     elif 'tristezza' in moods:
-        ser.write(b'LED_OFF\n') # Invia il comando per spegnere il LED
+        ser.write(b'2') # Invia il comando
     elif 'paura' in moods:
-        ser.write(b'LED_OFF\n') # Invia il comando per accendere il buzzer
+        ser.write(b'3') # Invia il comando
     elif 'rabbia' in moods:
-        ser.write(b'LED_OFF\n') # Invia il comando per spegnere il buzzer
+        ser.write(b'4') # Invia il comando
     elif 'calma' in moods:
-        ser.write(b'LED_ON\n')  # Invia il comando per spegnere il buzzer
+        ser.write(b'5')  # Invia il comando
 
 bot.polling()
 
