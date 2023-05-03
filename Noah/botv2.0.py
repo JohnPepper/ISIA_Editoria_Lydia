@@ -21,15 +21,16 @@ def get_openai_response(message_text):
 
     response = openai.Completion.create(
         model="text-davinci-003",
-        prompt=f"Mi dici qualcosa riguardo {message_text}?",
+        prompt=f"Valuta da una scala da uno a 10 quanto è depressa la frase:\n\nQ: Oggi è un bruttissima giornata\nA: 8\nQ: Uffa\nA: 6\nQ: Oggi è un ho litigato con il capo \nA: 7\nQ: Mi ha lasciatpo la ragazza, sono depresso\nA: 9 {message_text}?",
         temperature=0,
         max_tokens=64,
         top_p=1.0,
         frequency_penalty=0.0,
         presence_penalty=0.0,
-        stop=["\"\"\""]
     )
     return response.choices[0].text.strip()
+
+
 
 # Gestisce '/start' and '/help'
 @bot.message_handler(commands=['help', 'start'])
