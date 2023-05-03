@@ -20,3 +20,5 @@ def riconosci_stato_danimo(frase):
 frase = input("Inserisci la frase da analizzare: ")
 stato_danimo = riconosci_stato_danimo(frase)
 print(stato_danimo)
+
+# Gestisce tutti gli altri messaggi con content_type 'text' (content_types è predefinito a ['text'])

@@ -1,6 +1,6 @@
 import telebot
 import openai
-
+import re
 import serial
 import time
 
@@ -18,10 +18,11 @@ openai.api_key = OPENAI_API_KEY
 
 # Funzione per ottenere la risposta dal modello di OpenAI
 def get_openai_response(message_text):
-
+    prompt_text = f"Dato un messaggio come input, Voglio che tu mi risponda in maniera naturale e tra parentesi quadrate mi metti lo stato d'animo dell'input\n\nGli stati d'animo devo essere scelti tra i seguenti:\nFelicità\nTristezza\nPaura\nRabbia\nCalma\n{message_text}?"
+    prompt_text = re.sub(r'\[.*?\]', '', prompt_text) #rimuove le parole tra parentesi quadre
     response = openai.Completion.create(
         model="text-davinci-003",
-        prompt=f"Valuta da una scala da uno a 10 quanto è depressa la frase:\n\nQ: Oggi è un bruttissima giornata\nA: 8\nQ: Uffa\nA: 6\nQ: Oggi è un ho litigato con il capo \nA: 7\nQ: Mi ha lasciatpo la ragazza, sono depresso\nA: 9 {message_text}?",
+        prompt=prompt_text,
         temperature=0,
         max_tokens=64,
         top_p=1.0,
@@ -42,20 +43,27 @@ def send_welcome(message):
 # Gestisce tutti gli altri messaggi con content_type 'text' (content_types è predefinito a ['text'])
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
-    # Controlla se "accendi led" è presente nel testo del messaggio
-    if "accendi led" in message.text:
-        ser.write(b'1') # inviare il carattere '1' alla seriale
-        # Ottiene la risposta dal modello di OpenAI basata sul testo del messaggio
-        response = get_openai_response(message.text)
-        bot.reply_to(message, response)
-    else:
-        # Ottengo la risposta dal modello di OpenAI
-        response = get_openai_response(message.text)
-        bot.reply_to(message, response)
+    response = get_openai_response(message.text) #risposta dal modello di OpenAI
+    moods = re.findall(r'\[(.*?)\]', response)#La parola tra parentesi quadre la salva in una variabile
+    # Rimuove le parole tra parentesi quadre dalla risposta
+    response = re.sub(r'\[.*?\]', '', response)
+    execute_action(moods) # Invia il comando all'ESP32 in base allo stato d'animo
+    bot.reply_to(message, response)
+    # Stampa lo stato d'animo nel terminale
+    print(f"Stato d'animo: {moods}")
+
+
+def execute_action(moods):
+    if 'felicità' in moods:
+        ser.write(b'LED_ON\n') # Invia il comando per accendere il LED
+    elif 'tristezza' in moods:
+        ser.write(b'LED_OFF\n') # Invia il comando per spegnere il LED
+    elif 'paura' in moods:
+        ser.write(b'LED_OFF\n') # Invia il comando per accendere il buzzer
+    elif 'rabbia' in moods:
+        ser.write(b'LED_OFF\n') # Invia il comando per spegnere il buzzer
+    elif 'calma' in moods:
+        ser.write(b'LED_ON\n')  # Invia il comando per spegnere il buzzer
 
 bot.polling()
-
-
-
-
 

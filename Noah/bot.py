@@ -29,6 +29,7 @@ def get_openai_response(message_text):
         presence_penalty=0.0,
         stop=["\"\"\""]
     )
+
     return response.choices[0].text.strip()
 
 
