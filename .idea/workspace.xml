@@ -16,7 +16,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -53,7 +52,7 @@
       <workItem from="1683103928767" duration="29908000" />
       <workItem from="1683705699048" duration="346000" />
       <workItem from="1683706218420" duration="5736000" />
-      <workItem from="1683712461492" duration="1159000" />
+      <workItem from="1683712461492" duration="1535000" />
     </task>
     <task id="LOCAL-00001" summary="horrible">
       <created>1683106890362</created>
@@ -83,7 +82,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683706580430</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Updated &quot;Regina&quot; folder, corrected the project files">
+      <created>1683714097282</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1683714097282</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
