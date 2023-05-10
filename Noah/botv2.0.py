@@ -53,15 +53,15 @@ def echo_message(message):
 
 
 def execute_action(moods):
-    if 'felicità' in moods:
+    if 'Felicità' in moods:
         ser.write(b'1') # Invia il comando
-    elif 'tristezza' in moods:
+    elif 'Tristezza' in moods:
         ser.write(b'2') # Invia il comando
-    elif 'paura' in moods:
+    elif 'Paura' in moods:
         ser.write(b'3') # Invia il comando
-    elif 'rabbia' in moods:
+    elif 'Rabbia' in moods:
         ser.write(b'4') # Invia il comando
-    elif 'calma' in moods:
+    elif 'Calma' in moods:
         ser.write(b'5')  # Invia il comando
 
 bot.polling()
