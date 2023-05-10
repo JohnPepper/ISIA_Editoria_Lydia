@@ -71,12 +71,12 @@ def start(update, context):
 
 
 def process_voice_messages():
-
     for filename in os.listdir(media_file_path):
         if filename.endswith(".ogg"):
             # Open the file
             file_path = os.path.join(media_file_path, filename)
             convert_to_mp3(file_path)
+            os.remove(file_path)
             mp3_file = file_path + ".mp3"
             media_file = open(mp3_file, "rb")
             print("Opening File: " + file_path)
@@ -89,7 +89,7 @@ def process_voice_messages():
                 response_format='text'  # text, json, srt, vtt
             )
             print(str(response))
-
+            os.remove(mp3_file)
             # Detect emotions from the transcription
             emotions = detect_emotions(response)
             return emotions
@@ -100,7 +100,7 @@ def detect_emotions(transcribed_text):
     emotion = None
     try:
         prompt = f"Analyse the text, choose an appropriate emotion from the main ones: sadness, happiness, fear, " \
-                 f"anger, surprise and disgust and give the answer in one word:\n\nText: {transcribed_text}\n\nEmotion: "
+                 f"anger, calm and give the answer in one word:\n\nText: {transcribed_text}\n\nEmotion: "
 
         response_emo = openai.Completion.create(
             model="text-davinci-003",

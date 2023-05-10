@@ -1,8 +1,8 @@
-import pydub
 from pydub import AudioSegment
 
-pydub.AudioSegment.ffmpeg = "john_pepper/audio-orchestrator-ffmpeg"
-
+# AudioSegment.converter = "/john_pepper/audio-orchestrator-ffmpeg/bin"
+# AudioSegment.ffmpeg = "/john_pepper/audio-orchestrator-ffmpeg/bin"
+# AudioSegment.ffprobe ="/john_pepper/audio-orchestrator-ffmpeg/bin"
 
 def convert_to_mp3(file_path):
     sound = AudioSegment.from_file(file_path, format="ogg")
