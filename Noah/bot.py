@@ -21,7 +21,7 @@ def get_openai_response(message_text):
 
     response = openai.Completion.create(
         model="text-davinci-003",
-        prompt=f"Mi dici qualcosa riguardo {message_text}?",
+        prompt=f"rispondimi in maniera naturale ai messaggi come se fossi un amico {message_text}?",
         temperature=0,
         max_tokens=64,
         top_p=1.0,
@@ -29,7 +29,10 @@ def get_openai_response(message_text):
         presence_penalty=0.0,
         stop=["\"\"\""]
     )
+
     return response.choices[0].text.strip()
+
+
 
 # Gestisce '/start' and '/help'
 @bot.message_handler(commands=['help', 'start'])
