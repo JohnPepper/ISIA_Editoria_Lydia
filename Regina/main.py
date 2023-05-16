@@ -54,7 +54,7 @@ def voice_handler(update, context):
             context.bot.send_message(chat_id=update.effective_chat.id, text="Voice message saved.")
             try:
                 #Try process emotion then send to chat.
-                emotion = process_voice_messages()
+                emotion = process_voice_messages(file_path)
                 context.bot.send_message(chat_id=update.effective_chat.id,
                                          text=f"Detected emotion: {emotion}")
             except:
@@ -70,7 +70,7 @@ def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Send me a voice message and I'll save it.")
 
 
-def process_voice_messages():
+def process_voice_messages(file_path):
     for filename in os.listdir(media_file_path):
         if filename.endswith(".ogg"):
             # Open the file
