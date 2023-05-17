@@ -6,7 +6,7 @@ import env
 API_TOKEN = env.API_TOKEN
 OPENAI_API_KEY = env.OPENAI_API_KEY
 
-
+ #
 openai.api_key = OPENAI_API_KEY
 updater = Updater(token=API_TOKEN, use_context=True)
 dispatcher = updater.dispatcher
