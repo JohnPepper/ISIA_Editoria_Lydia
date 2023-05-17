@@ -5,138 +5,108 @@ import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 from telegram.utils.request import Request
 import openai
+from pydub import AudioSegment
+import asyncio
+import base64
+
 import env
-from convert import convert_to_mp3
 
 API_TOKEN = env.API_TOKEN
 OPENAI_API_KEY = env.OPENAI_API_KEY
 
+
+
 # Set OpenAI API key and Whisper model ID
-openai.api_key = OPENAI_API_KEY
+openai.api_key = env.OPENAI_API_KEY
 model_id = "whisper-1"
 
 # Create a custom Request object with an increased connection pool size
 request = Request(con_pool_size=20)
 
 # Initialize the bot with the custom Request object
-bot = telegram.Bot(token=API_TOKEN, request=request)
+bot_token = env.API_TOKEN
+bot = telegram.Bot(token=bot_token, request=request)
 updater = Updater(bot=bot, use_context=True)
 dispatcher = updater.dispatcher
 
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
-
-media_file_path = "./"
 
 def get_openai_response(message_text):
-    prompt_text = f"Dato un messaggio come input, Voglio che tu mi risponda in maniera naturale e tra parentesi quadrate mi metti lo stato d'animo dell'input\n\nGli stati d'animo devo essere scelti tra i seguenti:\nFelicità\nTristezza\nPaura\nRabbia\nCalma\n{message_text}?"
+    prompt_text = f"Dato un messaggio come input, Voglio che tu mi risponda in maniera naturale\n{message_text}?"
     response = openai.Completion.create(
         model="text-davinci-003",
         prompt=prompt_text,
         temperature=0,
-        max_tokens=64,
+        max_tokens=100,
         top_p=1.0,
         frequency_penalty=0.0,
         presence_penalty=0.0,
     )
     return response.choices[0].text.strip()
 
-# NLP response function
+def convert_to_mp3(file_path):
+    sound = AudioSegment.from_file(file_path, format="ogg")
+    sound.export(f"{file_path}.mp3", format="mp3", bitrate="128k")
+
+def start(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Ciao! Sono un bot Telegram.")
+
 def echo(update, context):
     message_text = update.message.text
     response_text = get_openai_response(message_text)
     context.bot.send_message(chat_id=update.effective_chat.id, text=response_text)
 
-# Function to handle voice messages
-def voice_handler(update, context):
+async def convert_to_mp3_async(ogg_path, mp3_path):
+    sound = AudioSegment.from_file(ogg_path, format="ogg")
+    sound.export(mp3_path, format="mp3", bitrate="128k")
 
-    voice_file = update.message.voice
-    # Get file path on Telegram server
-    file = context.bot.get_file(voice_file.file_id)
-    url = file.file_path
-    print(url)
+def handle_voice(update, context):
+    # Recupera il file vocale
+    voice_file = context.bot.get_file(update.message.voice.file_id)
 
-    response = requests.get(url)
-    print(response)
-    # Save the voice message
-    folder_path = media_file_path
-    file_name = f"{voice_file.file_id}.ogg"
-    file_path = os.path.join(folder_path, file_name)
+    # Scarica il file vocale in formato .ogg
+    ogg_path = f"{update.message.voice.file_id}.ogg"
+    voice_file.download(ogg_path)
 
-    try:
-        #save the downloaded audio file
-        with open(file_path, 'wb') as f:
-            f.write(response.content)
-            print("SAVED VOICE MESSAGE - as ogg")
-            # Send a confirmation message
-            context.bot.send_message(chat_id=update.effective_chat.id, text="Voice message saved.")
-            try:
-                #Try process emotion then send to chat.
-                emotion = process_voice_messages()
-                context.bot.send_message(chat_id=update.effective_chat.id,
-                                         text=f"Detected emotion: {emotion}")
-            except:
-                print("failed")
-    except Exception as e:
-        print("Error:", e)
-        context.bot.send_message(chat_id=update.effective_chat.id,
-                                 text="Error occurred while saving the voice message.")
+    # Converte il file audio in formato .mp3 in modo asincrono
+    mp3_path = os.path.join(os.getcwd(), f"{update.message.voice.file_id}.mp3")
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(convert_to_mp3_async(ogg_path, mp3_path))
 
-def process_voice_messages():
-    for filename in os.listdir(media_file_path):
-        if filename.endswith(".ogg"):
-            # Open the file
-            file_path = os.path.join(media_file_path, filename)
-            convert_to_mp3(file_path)
-            os.remove(file_path)
-            mp3_file = file_path + ".mp3"
-            media_file = open(mp3_file, "rb")
-            print("Opening File: " + file_path)
-            # ['m4a', 'mp3', 'webm', 'mp4', 'mpga', 'wav', 'mpeg']
-            # Transcribe the audio
-            response = openai.Audio.transcribe(
-                api_key=OPENAI_API_KEY,
-                model="whisper-1",
-                file=media_file,
-                response_format='text'  # text, json, srt, vtt
-            )
-            print(str(response))
-            os.remove(mp3_file)
-            # Detect emotions from the transcription
-            emotions = detect_emotions(response)
-            return emotions
+    # Verifica che il file .mp3 sia stato creato
+    if not os.path.exists(mp3_path):
+        context.bot.send_message(chat_id=update.message.chat_id, text="Si è verificato un errore durante la conversione del file audio.")
+        return
 
-def detect_emotions(transcribed_text):
-    # your existing code for detecting emotions
-    emotion = None
-    try:
-        prompt = f"Analyse the text, choose an appropriate emotion from the main ones: sadness, happiness, fear, " \
-                 f"anger, calm and give the answer in one word:\n\nText: {transcribed_text}\n\nEmotion: "
+    # Legge il file audio in formato .mp3
+    with open(mp3_path, "rb") as f:
+        audio_bytes = f.read()
 
-        response_emo = openai.Completion.create(
-            model="text-davinci-003",
-            prompt=prompt,
-            max_tokens=50,
-            n=1,
-            stop=None,
-            temperature=0.5,
-        )
+    # Converti i dati binari in una stringa base64
+    audio_base64 = base64.b64encode(audio_bytes).decode("utf-8")
 
-        emotion = response_emo.choices[0].text.strip()
-        print(emotion)
-        return emotion
-    except Exception as err:
-        print("Error:", err)
-        return "Failed"
+    # Chiama l'API di Whisper-1 per ottenere la risposta
+    response = openai.Completion.create(
+        engine="text-davinci-002",
+        prompt=f"Dato un messaggio vocale come input, voglio che tu mi risponda in maniera naturale.",
+        temperature=0.5,
+        max_tokens=100,
+        top_p=1.0,
+        frequency_penalty=0.0,
+        presence_penalty=0.0,
+        inputs={
+            "voice": audio_base64,
+            "model": model_id,
+        },
+    )
 
-# Function to handle start command
-def start(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text="Send me a voice message and I'll save it.")
+    # Invia la risposta al mittente del messaggio vocale
+    context.bot.send_message(chat_id=update.message.chat_id, text=response.choices[0].text)
 
-# Register handlers
 dispatcher.add_handler(CommandHandler('start', start))
 dispatcher.add_handler(MessageHandler(Filters.text, echo))
-dispatcher.add_handler(MessageHandler(Filters.voice, voice_handler))
 
-# Start the bot
+dispatcher.add_handler(MessageHandler(Filters.voice, handle_voice))
 updater.start_polling()
 updater.idle()
+
