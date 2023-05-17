@@ -6,6 +6,9 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 from telegram.utils.request import Request
 import openai
 
+ENABLE_ESP = 0
+# if 1 call ESP else call function to log "I Would speak to ESP telling ... "
+
 
 #local imports:
 import env
@@ -54,7 +57,7 @@ def voice_handler(update, context):
             context.bot.send_message(chat_id=update.effective_chat.id, text="Voice message saved.")
             try:
                 #Try process emotion then send to chat.
-                emotion = process_voice_messages()
+                emotion = process_voice_messages(file_path)
                 context.bot.send_message(chat_id=update.effective_chat.id,
                                          text=f"Detected emotion: {emotion}")
             except:
@@ -70,7 +73,7 @@ def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Send me a voice message and I'll save it.")
 
 
-def process_voice_messages():
+def process_voice_messages(file_path): # pass exact filename instead of scanning all files
     for filename in os.listdir(media_file_path):
         if filename.endswith(".ogg"):
             # Open the file
@@ -91,7 +94,7 @@ def process_voice_messages():
             print(str(response))
             os.remove(mp3_file)
             # Detect emotions from the transcription
-            emotions = detect_emotions(response)
+            emotions = detect_emotions(response) # Call Noah's function
             return emotions
 
 
@@ -123,6 +126,8 @@ def detect_emotions(transcribed_text):
 start_handler = CommandHandler('start', start)
 dispatcher.add_handler(start_handler)
 
+# clone this to handle non-voice msgs (   Filters.text )
+# or maybe keep a single handler without filter, and do an if
 voice_handler = MessageHandler(Filters.voice, voice_handler)
 dispatcher.add_handler(voice_handler)
 

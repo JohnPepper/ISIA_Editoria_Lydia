@@ -50,6 +50,7 @@ def echo_message(message):
     bot.reply_to(message, response)
     # Stampa lo stato d'animo nel terminale
     print(f"Stato d'animo: {moods}")
+# ALSO EXTRACT COMMANDS (TURN ON, ETC)
 
 def execute_action(moods):
     if 'Felicità' in moods:
