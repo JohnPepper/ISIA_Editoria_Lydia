@@ -115,7 +115,8 @@ fabric.properties
 .idea/**/azureSettings.xml
 
 #do not include .env file
-./env.py
+
+env.py
 #do not include venv
 venv/
 __pycache__/
