@@ -12,16 +12,14 @@ from convert import convert_to_mp3
 
 # Set up logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
-# Set up media file path
-media_file_path = "./"
 
+media_file_path = "./"
+model_id = "whisper-1"
 bot_token = env.bot_token
 API_KEY = env.API_KEY
 openai.api_key = env.API_KEY
-model_id = "whisper-1"
 # Set up the bot
 request = Request(con_pool_size=20)
-bot_token = env.bot_token
 bot = telegram.Bot(token=bot_token, request=request)
 updater = Updater(bot=bot, use_context=True)
 dispatcher = updater.dispatcher
@@ -89,7 +87,7 @@ def process_voice_messages(file_path):
         api_key=API_KEY,
         model=model_id,
         file=media_file,
-        response_format='text' # text, json, srt, vtt
+        response_format='text'  # text, json, srt, vtt
     )
     print(str(response))
     os.remove(mp3_file)
