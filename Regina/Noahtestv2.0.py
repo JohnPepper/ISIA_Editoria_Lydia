@@ -10,13 +10,15 @@ import openai
 import env
 from convert import convert_to_mp3
 
+# Set up logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+# Set up media file path
+media_file_path = "./"
 
 bot_token = env.bot_token
 API_KEY = env.API_KEY
-
 openai.api_key = env.API_KEY
 model_id = "whisper-1"
-
 # Set up the bot
 request = Request(con_pool_size=20)
 bot_token = env.bot_token
@@ -24,8 +26,11 @@ bot = telegram.Bot(token=bot_token, request=request)
 updater = Updater(bot=bot, use_context=True)
 dispatcher = updater.dispatcher
 
+
 def get_openai_response(message_text):
-    prompt_text = f"Dato un messaggio come input, Voglio che tu mi risponda in maniera naturale e tra parentesi quadrate mi metti lo stato d'animo dell'input\n\nGli stati d'animo devo essere scelti tra i seguenti:\nFelicità\nTristezza\nPaura\nRabbia\nCalma\n{message_text}?"
+    prompt_text = f"Dato un messaggio come input, Voglio che tu mi risponda in maniera naturale e tra parentesi " \
+                  f"quadrate mi metti lo stato d'animo dell'input\n\nGli stati d'animo devo essere scelti tra " \
+                  f"i seguenti:\nFelicità\nTristezza\nPaura\nRabbia\nCalma\n{message_text}?"
     response = openai.Completion.create(
         model="text-davinci-003",
         prompt=prompt_text,
@@ -38,13 +43,6 @@ def get_openai_response(message_text):
     return response.choices[0].text.strip()
 
 
-# Set up logging
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
-
-# Set up media file path
-media_file_path = "./"
-
-# Function to handle voice messages
 def voice_handler(update, context):
     voice_file = update.message.voice
     # Get file path on Telegram server
@@ -78,7 +76,7 @@ def voice_handler(update, context):
         context.bot.send_message(chat_id=update.effective_chat.id,
                                  text="Error occurred while saving the voice message.")
 
-# Function to process voice messages
+
 def process_voice_messages(file_path):
     convert_to_mp3(file_path)
     os.remove(file_path)
@@ -99,11 +97,13 @@ def process_voice_messages(file_path):
     emotions = detect_emotions(response)
     return emotions
 
-# Function to detect emotions from text
+
 def detect_emotions(transcribed_text):
     emotion = None
     try:
-        prompt_text = f"Dato un messaggio come input, Voglio che tu mi risponda in maniera naturale e tra parentesi quadrate mi metti lo stato d'animo dell'input\n\nGli stati d'animo devo essere scelti tra i seguenti:\nFelicità\nTristezza\nPaura\nRabbia\nCalma\n{transcribed_text}?"
+        prompt_text = f"Dato un messaggio come input, Voglio che tu mi risponda in maniera naturale e tra parentesi " \
+                      f"quadrate mi metti lo stato d'animo dell'input\n\nGli stati d'animo devo essere scelti tra " \
+                      f"i seguenti:\nFelicità\nTristezza\nPaura\nRabbia\nCalma\n{transcribed_text}?"
         response_emo = openai.Completion.create(
             model="text-davinci-003",
             prompt=prompt_text,
@@ -113,7 +113,6 @@ def detect_emotions(transcribed_text):
             frequency_penalty=0.0,
             presence_penalty=0.0,
         )
-
         emotion = response_emo.choices[0].text.strip()
         print(emotion)
         return emotion
@@ -123,7 +122,8 @@ def detect_emotions(transcribed_text):
 
 # Function to handle start command
 def start(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text="Ciao! Sono un bot Telegram. Inviami un messaggio o un messaggio vocale.")
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Ciao! Sono un bot Telegram. "
+                                                                    "Inviami un messaggio o un messaggio vocale.")
 
 # Function to handle text messages
 def echo(update, context):
