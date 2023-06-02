@@ -2,14 +2,12 @@ import os
 import logging
 import requests
 import telegram
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram.utils.request import Request
 import openai
-
-#local imports:
+# local imports:
 import env
 from convert import convert_to_mp3
-
 # Set up logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
@@ -18,11 +16,6 @@ model_id = "whisper-1"
 bot_token = env.bot_token
 API_KEY = env.API_KEY
 openai.api_key = env.API_KEY
-# Set up the bot
-request = Request(con_pool_size=20)
-bot = telegram.Bot(token=bot_token, request=request)
-updater = Updater(bot=bot, use_context=True)
-dispatcher = updater.dispatcher
 
 
 def get_openai_response(message_text):
@@ -128,6 +121,12 @@ def echo(update, context):
     message_text = update.message.text
     response_text = get_openai_response(message_text)
     context.bot.send_message(chat_id=update.effective_chat.id, text=response_text)
+
+# Set up the bot
+request = Request(con_pool_size=20)
+bot = telegram.Bot(token=bot_token, request=request)
+updater = Updater(bot=bot, use_context=True)
+dispatcher = updater.dispatcher
 
 # Register handlers
 start_handler = CommandHandler('start', start)
