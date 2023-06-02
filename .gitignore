@@ -114,4 +114,11 @@ fabric.properties
 # https://plugins.jetbrains.com/plugin/8053-azure-toolkit-for-intellij
 .idea/**/azureSettings.xml
 
+#do not include .env file
+env.py
+#do not include venv
+venv/
+__pycache__/
+.idea/
+
 # End of https://www.toptal.com/developers/gitignore/api/pycharm
