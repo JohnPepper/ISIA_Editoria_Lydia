@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67be626f-6c27-4eec-90b1-cb47875fa3aa" name="Changes" comment="Merged filoe">
-      <change afterPath="$PROJECT_DIR$/Regina/Noahtestv2.0.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Final/convert.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Final/env.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Final/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Final/main2.0.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Final/main3.0.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Final/mainTest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Regina/Noahtest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Regina/Noahtest.py" afterDir="false" />
     </list>
     <list id="b04315b4-0006-4d38-9ebc-5087a2ebbc04" name="Changes by n" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,27 +37,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/noahgabrielzandona/PycharmProjects/ISIA_Editoria_Lydia/Regina&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/noahgabrielzandona/PycharmProjects/ISIA_Editoria_Lydia/Final",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "advanced.settings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Final" />
       <recent name="$PROJECT_DIR$/Regina" />
       <recent name="$PROJECT_DIR$/Noah" />
       <recent name="$PROJECT_DIR$/Regina/venv" />
       <recent name="$PROJECT_DIR$/.." />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Final" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -71,7 +79,8 @@
       <workItem from="1684224467249" duration="2489000" />
       <workItem from="1684308710482" duration="788000" />
       <workItem from="1684309757664" duration="9346000" />
-      <workItem from="1684948850284" duration="413000" />
+      <workItem from="1684948850284" duration="777000" />
+      <workItem from="1685954640329" duration="13777000" />
     </task>
     <task id="LOCAL-00001" summary="horrible">
       <created>1683106890362</created>
@@ -129,7 +138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684327032999</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Merged filoe">
+      <created>1684949951166</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1684949951166</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,16 +177,20 @@
     <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$bot_speech.coverage" NAME="bot_speech Coverage Results" MODIFIED="1683207177463" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../Speech_to_text" />
     <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$Bot_5_0.coverage" NAME="Bot_5_0 Coverage Results" MODIFIED="1683120846075" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Regina" />
     <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$Bot_test.coverage" NAME="Bot_test Coverage Results" MODIFIED="1684323437986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Noah" />
+    <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$mainTest.coverage" NAME="mainTest Coverage Results" MODIFIED="1685956701516" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Final" />
     <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$newbot2_0.coverage" NAME="newbot2.0 Coverage Results" MODIFIED="1684325642845" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Noah" />
-    <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$main.coverage" NAME="main Coverage Results" MODIFIED="1684324742955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Regina" />
+    <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$main.coverage" NAME="main Coverage Results" MODIFIED="1685958739955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Final" />
+    <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$bot_v2_1.coverage" NAME="bot_v2.1 Coverage Results" MODIFIED="1685972491145" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Noah" />
     <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$Noahtest.coverage" NAME="Noahtest Coverage Results" MODIFIED="1684328179900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Regina" />
     <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$prova.coverage" NAME="prova Coverage Results" MODIFIED="1683713467789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Noah" />
     <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$convert.coverage" NAME="convert Coverage Results" MODIFIED="1683715897926" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Regina" />
+    <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$main3_0.coverage" NAME="main3.0 Coverage Results" MODIFIED="1685975193930" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Final" />
     <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$botv2_0.coverage" NAME="botv2.0 Coverage Results" MODIFIED="1683721712138" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Noah" />
     <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$bot_4_0.coverage" NAME="bot_4_0 Coverage Results" MODIFIED="1683121560356" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../Speech_to_text" />
     <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$test.coverage" NAME="test Coverage Results" MODIFIED="1683109654071" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../Speech_to_text" />
     <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$Bot_6_0.coverage" NAME="Bot_6_0 Coverage Results" MODIFIED="1683548202224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Regina" />
     <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$Botv2_1.coverage" NAME="Botv2.1 Coverage Results" MODIFIED="1683716098544" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Noah" />
+    <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$main2_0.coverage" NAME="main2.0 Coverage Results" MODIFIED="1685971872389" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Final" />
     <SUITE FILE_PATH="coverage/ISIA_Editoria_Lydia$vecchio.coverage" NAME="vecchio Coverage Results" MODIFIED="1683119622268" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
