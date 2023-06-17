@@ -26,7 +26,9 @@ openai.api_key = env.API_KEY
 
 def natural_response(transcribed_text):
     try:
-        prompt = f"You are a bot and you have to respond to me in an NLP way as if I were a friend to the messages I send you\n{transcribed_text}\n",
+        prompt = f"You are a bot and you have to respond to me in an NLP way as if I were a friend to the messages I send you\n\n" \
+                 f"{transcribed_text}\n\n",
+
         response_emo = openai.Completion.create(
             model="text-davinci-003",
             prompt=prompt,
@@ -45,7 +47,16 @@ def natural_response(transcribed_text):
 
 def detect_emotions(transcribed_text):
     try:
-        prompt = f"Given a message as input I want you to parse it and identify one of these moods to me.\nIf it has no mood state you give me as output \"no mood\"\nThe possible moods are as follows:\nhappiness,\nsadness,\nanger,\ntranquility\n\nInput: Hello how are you?\nno mood\n\nInput: How much is the square root of 4?\nno mood\n\n{transcribed_text}\n",
+        prompt = f"Given a message as input I want you to parse it and identify one of these moods to me.\n" \
+                 f"If it has no mood state you give me as output \"no mood\"\n" \
+                 f"The possible moods are as follows:\n" \
+                 f"happiness,\n" \
+                 f"sadness,\n" \
+                 f"anger,\n" \
+                 f"tranquility\n\n" \
+                 f"Input: Hello how are you?\nno mood\n\n" \
+                 f"Input: How much is the square root of 4?\nno mood\n\n" \
+                 f"{transcribed_text}\n\n",
 
         response_emo = openai.Completion.create(
             model="text-davinci-003",
@@ -65,7 +76,42 @@ def detect_emotions(transcribed_text):
 
 def detect_command(transcribed_text):
     try:
-        prompt = f"interpret this messaging and insert:\n1 if the user wants the light to go out.\n2 if the user wants the light to come on.\n3 if the user wants the music to come on,\n4 if the user wants the music to go off,\n5 if the user wants a soothing muscia, \n6 if he wants upbeat muscia. \n9 if instead I do not require any of these functions enter 9\n\nuser: Turn on the light.\n2\n\nuser: Turn on my light.\n2\n\nuser: Turn on the light now.\n2\n\nuser: Hi would you turn on my house light for me?\n2\n\nuser: will you turn on the light bulb for me?\n2\n\nuser: turn off my light.\n1\n\nuser: Turn off the light please.\n1\n\nuser: Is there too much light here will you turn it off?\n1\n\nuser: How much sun outside will you turn off the light for me?\n1\n\nuser: It's gotten dark will you turn the light on me now?\n2\n\nuser: Am I happy today?\n3\n\nuser: Hello how are you?\n9\n\nuser: Today I'm not so good my dog died?\n9\n\nuser: I demand that you turn on my light instantly\n1\n\nuser: Put on some music for me.\n3\n\nuser: I feel like hearing some music.\n3\n\nuser: Will you put on some relaxing music for me?\n3\n\nuser: Put some music on for me now.\n3\n\nuser: Play me some random music.\n3\n\nuser: Turn off my music\n4\n\nuser: Too much noise turn off my music\n4\n\nuser: Will you put on soothing music for me?\n5\n\nuser: I feel like relaxing, put on some music for me.\n5\n\nuser: Now it would fit some relaxing music\n5\n\nuser: Will you put on some upbeat muscia for me?\n6\n\nuser: I'm in the mood for a party would you put on some music for me?\n6\n\nuser: I'm in a party mood. Will you put some songs on me?\n6\n\nuser: I'm sad today\n9\n\nuser: I am very angry\n9\n\nuser: How are you? can't find my keys\n9\n{transcribed_text}\n",
+        prompt = f"interpret this messaging and insert:\n" \
+                 f"1 if the user wants the light to go out.\n" \
+                 f"2 if the user wants the light to come on.\n" \
+                 f"3 if the user wants the music to come on,\n" \
+                 f"4 if the user wants the music to go off,\n" \
+                 f"5 if the user wants a soothing music, \n" \
+                 f"6 if he wants upbeat music. \n" \
+                 f"9 if instead I do not require any of these functions enter 9\n\n" \
+                 f"user: Turn on the light.\n2\n\n" \
+                 f"user: Turn on my light.\n2\n\n" \
+                 f"user: Turn on the light now.\n2\n\n" \
+                 f"user: Hi would you turn on my house light for me?\n2\n\n" \
+                 f"user: will you turn on the light bulb for me?\n2\n\n" \
+                 f"user: turn off my light.\n1\n\nuser: Turn off the light please.\n1\n\n" \
+                 f"user: Is there too much light here will you turn it off?\n1\n\n" \
+                 f"user: How much sun outside will you turn off the light for me?\n1\n\n" \
+                 f"user: It's gotten dark will you turn the light on me now?\n2\n\n" \
+                 f"user: Am I happy today?\n3\n\nuser: Hello how are you?\n9\n\n" \
+                 f"user: Today I'm not so good my dog died?\n9\n\n" \
+                 f"user: I demand that you turn on my light instantly\n1\n\n" \
+                 f"user: Put on some music for me.\n3\n\n" \
+                 f"user: I feel like hearing some music.\n3\n\n" \
+                 f"user: Will you put on some relaxing music for me?\n3\n\n" \
+                 f"user: Put some music on for me now.\n3\n\n" \
+                 f"user: Play me some random music.\n3\n\n" \
+                 f"user: Turn off my music\n4\n\n" \
+                 f"user: Too much noise turn off my music\n4\n\n" \
+                 f"user: Will you put on soothing music for me?\n5\n\n" \
+                 f"user: I feel like relaxing, put on some music for me.\n5\n\n" \
+                 f"user: Now it would fit some relaxing music\n5\n\n" \
+                 f"user: Will you put on some upbeat muscia for me?\n6\n\n" \
+                 f"user: I'm in the mood for a party would you put on some music for me?\n6\n\n" \
+                 f"user: I'm in a party mood. Will you put some songs on me?\n6\n\n" \
+                 f"user: I'm sad today\n9\n\nuser: I am very angry\n9\n\n" \
+                 f"user: How are you? can't find my keys\n9\n\n" \
+                 f"{transcribed_text}\n\n",
 
         response_emo = openai.Completion.create(
             model="text-davinci-003",
@@ -116,26 +162,32 @@ def voice_handler(update, context):
 
                 if command == '1':
                     ser.write(b'5')  # Invia il comando per spegnere la luce
+                    execute_action(moods)
                     print("Light OFF")
 
                 elif command == '2':
                     ser.write(b'6')  # Invia il comando per accendere la luce
+                    execute_action(moods)
                     print("Light ON")
 
                 elif command == '3':
                     ser.write(b'7')  # Invia il comando per spegnere la luce
+                    execute_action(moods)
                     print("Music ON")
 
                 elif command == '4':
                     ser.write(b'8')  # Invia il comando per accendere la luce
+                    execute_action(moods)
                     print("Music OFF")
 
                 elif command == '5':
                     ser.write(b'9')  # Invia il comando per spegnere la luce
+                    execute_action(moods)
                     print("Relaxing music ON")
 
                 elif command == '6':
                     ser.write(b'10')  # Invia il comando per accendere la luce
+                    execute_action(moods)
                     print("Party music ON")
 
                 else:
@@ -182,26 +234,32 @@ def echo(update, context):
 
     if command == '1':
         ser.write(b'5')  # Invia il comando per spegnere la luce
+        execute_action(moods)
         print("Light OFF")
 
     elif command == '2':
         ser.write(b'6')  # Invia il comando per accendere la luce
+        execute_action(moods)
         print("Light ON")
 
     elif command == '3':
         ser.write(b'7')  # Invia il comando per spegnere la luce
+        execute_action(moods)
         print("Music ON")
 
     elif command == '4':
         ser.write(b'8')  # Invia il comando per accendere la luce
+        execute_action(moods)
         print("Music OFF")
 
     elif command == '5':
         ser.write(b'9')  # Invia il comando per spegnere la luce
+        execute_action(moods)
         print("Relaxing music ON")
 
     elif command == '6':
         ser.write(b'10')  # Invia il comando per accendere la luce
+        execute_action(moods)
         print("Party music ON")
 
     else:
