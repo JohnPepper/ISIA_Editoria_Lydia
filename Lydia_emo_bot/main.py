@@ -151,7 +151,6 @@ def voice_handler(update, context):
             f.write(response.content)
             print("SAVED VOICE MESSAGE - as ogg")
             # Send a confirmation message
-            context.bot.send_message(chat_id=update.effective_chat.id, text="Voice message saved.")
             try:
                 # Try process emotion then send to chat.
                 message_text = process_voice_messages(file_path)
@@ -192,7 +191,6 @@ def voice_handler(update, context):
 
                 else:
                     execute_action(moods)  # Invia il comando all'ESP32 in base allo stato d'animo
-                    print(moods)
 
             except Exception as e:
                 print("Error:", e)
@@ -264,7 +262,6 @@ def echo(update, context):
 
     else:
         execute_action(moods)  # Invia il comando all'ESP32 in base allo stato d'animo
-        print(moods)
 
 
 def execute_action(moods):
